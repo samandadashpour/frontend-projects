@@ -1,0 +1,1070 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Professional front-end landing page template." />
+  <meta name="theme-color" content="#0b1220" />
+  <title>EdgesMarket — Modern Web Experiences</title>
+  <meta property="og:title" content="EdgesMarket — Modern Web Experiences" />
+  <meta property="og:description" content="A professional landing page template (HTML/CSS/JS) with theme toggle, animations, and sections." />
+  <meta property="og:type" content="website" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html:focus-within { scroll-behavior: smooth; }
+    body { margin: 0; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; }
+    img, picture, video, canvas, svg { display: block; max-width: 100%; }
+    input, button, textarea, select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    ul { padding: 0; margin: 0; list-style: none; }
+    p { line-height: 1.6; }
+
+    :root{
+      --bg:#0b1220;
+      --bg2:#0e172a;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.09);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.68);
+      --faint:rgba(255,255,255,.52);
+      --border:rgba(255,255,255,.10);
+      --shadow:0 20px 60px rgba(0,0,0,.40);
+      --shadow2:0 10px 40px rgba(0,0,0,.28);
+      --brand:#7c3aed;
+      --brand2:#06b6d4;
+      --good:#22c55e;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+      --radius:18px;
+      --radius2:26px;
+      --container:1120px;
+      --pad:clamp(16px, 4vw, 28px);
+      --h1:clamp(34px, 4.8vw, 56px);
+      --h2:clamp(24px, 3.2vw, 34px);
+      --mono:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+    }
+
+    [data-theme="light"]{
+      --bg:#f7f8fb;
+      --bg2:#ffffff;
+      --card:rgba(10,10,20,.04);
+      --card2:rgba(10,10,20,.06);
+      --text:rgba(10,10,20,.92);
+      --muted:rgba(10,10,20,.70);
+      --faint:rgba(10,10,20,.55);
+      --border:rgba(10,10,20,.12);
+      --shadow:0 18px 60px rgba(10,10,20,.12);
+      --shadow2:0 10px 35px rgba(10,10,20,.10);
+    }
+
+    body{
+      font-family:var(--sans);
+      color:var(--text);
+      background:
+        radial-gradient(1200px 900px at 10% -10%, rgba(124,58,237,.35), transparent 60%),
+        radial-gradient(1000px 800px at 95% 5%, rgba(6,182,212,.22), transparent 55%),
+        radial-gradient(1200px 1000px at 50% 120%, rgba(124,58,237,.16), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .container{ width:min(var(--container), calc(100% - var(--pad)*2)); margin-inline:auto; }
+    .section{ padding:clamp(54px, 8vw, 96px) 0; position:relative; }
+    .glass{
+      background:linear-gradient(180deg, var(--card), transparent 140%);
+      border:1px solid var(--border);
+      border-radius:var(--radius2);
+      box-shadow:var(--shadow2);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+    }
+    .card{
+      background:linear-gradient(180deg, var(--card2), transparent 160%);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow2);
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px; border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:var(--muted); font-size:13px;
+    }
+    .kbd{
+      font-family:var(--mono);
+      font-size:12px;
+      padding:3px 8px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.18);
+      color:var(--muted);
+    }
+    .muted{ color:var(--muted); }
+    .faint{ color:var(--faint); }
+    .mono{ font-family:var(--mono); }
+
+    .title{ font-size:var(--h2); margin:0 0 10px 0; letter-spacing:-0.02em; }
+    .subtitle{ margin:0; color:var(--muted); max-width:68ch; }
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 16px; border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      cursor:pointer;
+      transition:transform .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none; white-space:nowrap;
+    }
+    .btn:hover{ transform:translateY(-1px); background:rgba(255,255,255,.09); border-color:rgba(255,255,255,.18); }
+    .btn:active{ transform:translateY(0px); }
+    .btn.primary{
+      border-color:rgba(124,58,237,.45);
+      background:linear-gradient(135deg, rgba(124,58,237,.95), rgba(6,182,212,.85));
+      box-shadow:0 14px 40px rgba(124,58,237,.20);
+    }
+    .btn.primary:hover{ filter:brightness(1.05); }
+    .btn.ghost{ background:transparent; border-color:var(--border); }
+
+    .tag{
+      font-size:12px; padding:5px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      background:rgba(255,255,255,.05);
+    }
+
+    .nav{
+      position:sticky; top:0; z-index:50;
+      padding:14px 0;
+      backdrop-filter:blur(14px);
+      -webkit-backdrop-filter:blur(14px);
+      background:linear-gradient(180deg, rgba(0,0,0,.28), transparent 120%);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    [data-theme="light"] .nav{
+      background:linear-gradient(180deg, rgba(255,255,255,.70), rgba(255,255,255,.20));
+      border-bottom:1px solid rgba(10,10,20,.10);
+    }
+    .nav .row{ display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .brand{ display:inline-flex; align-items:center; gap:10px; font-weight:700; letter-spacing:-0.02em; }
+    .logo{
+      width:34px; height:34px; border-radius:12px;
+      background:
+        radial-gradient(14px 14px at 30% 30%, rgba(255,255,255,.65), transparent 55%),
+        linear-gradient(135deg, rgba(124,58,237,1), rgba(6,182,212,1));
+      box-shadow:0 12px 30px rgba(124,58,237,.25);
+      border:1px solid rgba(255,255,255,.18);
+    }
+
+    .nav-links{ display:flex; align-items:center; gap:14px; color:var(--muted); font-size:14px; }
+    .nav-links a{ padding:10px 10px; border-radius:10px; transition:background .15s ease, color .15s ease; }
+    .nav-links a:hover{ background:rgba(255,255,255,.06); color:var(--text); }
+
+    .nav-actions{ display:flex; align-items:center; gap:10px; }
+
+    .icon-btn{
+      width:42px; height:42px; border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      cursor:pointer;
+      display:inline-grid;
+      place-items:center;
+      transition:transform .15s ease, background .15s ease;
+    }
+    .icon-btn:hover{ transform:translateY(-1px); background:rgba(255,255,255,.09_toggle); }
+
+    .hamburger{ display:none; }
+    .mobile-panel{ display:none; margin-top:12px; padding:10px; border-radius:16px; }
+    .mobile-panel a{ display:block; padding:12px 12px; border-radius:12px; color:var(--muted); }
+    .mobile-panel a:hover{ background:rgba(255,255,255,.06); color:var(--text); }
+
+    @media (max-width:920px){
+      .nav-links{ display:none; }
+      .hamburger{ display:inline-grid; }
+      .mobile-panel{ display:none; }
+      .mobile-panel.open{ display:block; }
+    }
+
+    .hero{ padding-top:clamp(30px, 4vw, 40px); }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:22px;
+      align-items:stretch;
+    }
+    @media (max-width:980px){ .hero-grid{ grid-template-columns:1fr; } }
+
+    .hero h1{
+      font-size:var(--h1);
+      line-height:1.06;
+      margin:16px 0 12px;
+      letter-spacing:-0.04em;
+    }
+    .gradient-text{
+      background:linear-gradient(135deg, rgba(124,58,237,1), rgba(6,182,212,1));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .hero p{
+      margin:0;
+      max-width:70ch;
+      color:var(--muted);
+      font-size:clamp(15px, 1.8vw, 18px);
+    }
+    .hero-cta{ display:flex; gap:12px; margin-top:18px; flex-wrap:wrap; align-items:center; }
+    .hero-stats{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width:520px){ .hero-stats{ grid-template-columns:1fr; } }
+    .stat{ padding:14px; }
+    .stat b{ display:block; font-size:18px; letter-spacing:-0.02em; }
+    .stat span{ color:var(--muted); font-size:13px; }
+
+    .hero-right{ padding:18px; overflow:hidden; position:relative; }
+    .mock{
+      border-radius:18px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), transparent 180%);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .mock-top{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 14px;
+      border-bottom:1px solid var(--border);
+      background:rgba(255,255,255,.05);
+    }
+    .dots{ display:inline-flex; gap:7px; align-items:center; }
+    .dot{ width:10px; height:10px; border-radius:999px; background:rgba(255,255,255,.26); }
+    .mock-body{ padding:16px; }
+    .code{
+      font-family:var(--mono);
+      font-size:12px;
+      line-height:1.55;
+      color:rgba(255,255,255,.82);
+      white-space:pre;
+      background:rgba(0,0,0,.24);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      padding:14px;
+      overflow:auto;
+    }
+    [data-theme="light"] .code{ color:rgba(10,10,20,.85); background:rgba(10,10,20,.06); }
+
+    .floating{
+      position:absolute;
+      inset:auto auto 14px 14px;
+      padding:10px 12px;
+      border-radius:14px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--border);
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      box-shadow:var(--shadow2);
+    }
+    .badge-dot{
+      width:10px; height:10px;
+      border-radius:999px;
+      background:var(--good);
+      box-shadow:0 0 0 6px rgba(34,197,94,.16);
+    }
+
+    .two-col{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:18px;
+      align-items:start;
+    }
+    @media (max-width:900px){ .two-col{ grid-template-columns:1fr; } }
+
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+      margin-top:16px;
+    }
+    @media (max-width:980px){ .feature-grid{ grid-template-columns:1fr; } }
+
+    .feature{ padding:16px; position:relative; overflow:hidden; }
+    .feature::before{
+      content:"";
+      position:absolute;
+      inset:-60px -80px auto auto;
+      width:160px; height:160px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(6,182,212,.38), transparent 60%),
+        radial-gradient(circle at 70% 70%, rgba(124,58,237,.38), transparent 60%);
+      opacity:.65;
+      transform:rotate(20deg);
+    }
+    .feature .icon{
+      width:44px; height:44px; border-radius:14px;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.07);
+      border:1px solid var(--border);
+      margin-bottom:12px;
+      position:relative; z-index:1;
+    }
+    .feature h3{ margin:0 0 8px; font-size:16px; position:relative; z-index:1; }
+    .feature p{ margin:0; color:var(--muted); font-size:14px; position:relative; z-index:1; }
+
+    .split{ padding:18px; }
+    .list{ margin-top:14px; display:grid; gap:10px; }
+    .li{ display:flex; gap:10px; align-items:flex-start; color:var(--muted); font-size:14px; }
+    .check{
+      width:20px; height:20px; border-radius:8px;
+      display:grid; place-items:center;
+      background:rgba(34,197,94,.14);
+      border:1px solid rgba(34,197,94,.35);
+      color:rgba(34,197,94,1);
+      flex:0 0 auto;
+      margin-top:1px;
+    }
+
+    .portfolio{
+      display:grid;
+      grid-template-columns:repeat(12, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    .work{
+      grid-column:span 4;
+      padding:14px;
+      overflow:hidden;
+      position:relative;
+      min-height:210px;
+    }
+    .work .thumb{
+      height:120px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:
+        radial-gradient(120px 80px at 20% 25%, rgba(124,58,237,.55), transparent 60%),
+        radial-gradient(120px 80px at 85% 70%, rgba(6,182,212,.45), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+      margin-bottom:12px;
+    }
+    .work h4{ margin:0 0 6px; }
+    .work p{ margin:0; color:var(--muted); font-size:14px; }
+    .work .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .work .chip{
+      font-size:12px; padding:6px 10px; border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      background:rgba(255,255,255,.05);
+    }
+    @media (max-width:980px){ .work{ grid-column:span 12; } }
+
+    .testimonials{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+    }
+    @media (max-width:980px){ .testimonials{ grid-template-columns:1fr; } }
+    .quote{ padding:16px; }
+    .quote p{ margin:0 0 12px; color:var(--muted); }
+    .quote .who{ display:flex; align-items:center; gap:10px; }
+    .avatar{
+      width:40px; height:40px; border-radius:14px;
+      background:linear-gradient(135deg, rgba(124,58,237,.9), rgba(6,182,212,.9));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 12px 30px rgba(124,58,237,.18);
+    }
+    .who b{ display:block; }
+    .who span{ font-size:13px; color:var(--muted); }
+
+    .pricing{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:14px;
+      align-items:stretch;
+    }
+    @media (max-width:980px){ .pricing{ grid-template-columns:1fr; } }
+    .price{ padding:18px; position:relative; overflow:hidden; }
+    .price.featured{ border-color:rgba(124,58,237,.35); box-shadow:0 20px 70px rgba(124,58,237,.14); }
+    .price h4{ margin:0 0 8px; }
+    .price .money{ font-size:28px; letter-spacing:-0.03em; margin:10px 0 6px; }
+    .price .money small{ font-size:14px; color:var(--muted); }
+    .price ul{ margin-top:12px; display:grid; gap:10px; }
+    .price li{ color:var(--muted); font-size:14px; display:flex; gap:10px; align-items:flex-start; }
+    .price .hint{ font-size:13px; color:var(--muted); margin-top:10px; }
+
+    .faq{ margin-top:18px; display:grid; gap:10px; }
+    details{
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.05);
+      padding:12px 14px;
+    }
+    summary{
+      cursor:pointer;
+      font-weight:600;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      list-style:none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    details p{ margin:10px 0 0; color:var(--muted); }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:14px;
+      margin-top:18px;
+    }
+    @media (max-width:980px){ .contact-grid{ grid-template-columns:1fr; } }
+
+    form{ padding:16px; }
+    .field{ display:grid; gap:8px; margin-bottom:12px; }
+    label{ font-size:13px; color:var(--muted); }
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      outline:none;
+      transition:border-color .15s ease, background .15s ease;
+    }
+    input:focus, textarea:focus{ border-color:rgba(124,58,237,.55); background:rgba(255,255,255,.08); }
+    textarea{ min-height:110px; resize:vertical; }
+    .form-row{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    @media (max-width:620px){ .form-row{ grid-template-columns:1fr; } }
+
+    .note{ padding:16px; }
+    .note .mini{
+      display:grid;
+      gap:12px;
+      margin-top:12px;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .mini a{ text-decoration:underline; text-decoration-color:rgba(124,58,237,.55); }
+
+    footer{
+      padding:36px 0;
+      border-top:1px solid rgba(255,255,255,.08);
+      background:rgba(0,0,0,.12);
+    }
+    [data-theme="light"] footer{ background:rgba(10,10,20,.03); border-top:1px solid rgba(10,10,20,.10); }
+    .foot{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .foot .links{ display:flex; gap:12px; flex-wrap:wrap; color:var(--muted); font-size:14px; }
+    .foot .links a{ padding:8px 10px; border-radius:10px; }
+    .foot .links a:hover{ background:rgba(255,255,255,.06); color:var(--text); }
+    .tiny{ font-size:13px; color:var(--muted); margin:10px 0 0; }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(14px);
+      transition:opacity .6s ease, transform .6s ease;
+    }
+    .reveal.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+    @media (prefers-reduced-motion: reduce){
+      html:focus-within{ scroll-behavior:auto; }
+      .reveal{ transition:none; transform:none; opacity:1; }
+      .btn, .icon-btn{ transition:none; }
+    }
+
+    .to-top{
+      position:fixed;
+      right:16px;
+      bottom:16px;
+      width:46px;
+      height:46px;
+      border-radius:16px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.08);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      box-shadow:var(--shadow2);
+      opacity:0;
+      transform:translateY(8px);
+      pointer-events:none;
+      transition:opacity .2s ease, transform .2s ease;
+      z-index:60;
+    }
+    .to-top.show{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
+    }
+
+    ::selection{ background:rgba(124,58,237,.35); }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="container">
+      <div class="row">
+        <a class="brand" href="#top" aria-label="Home">
+          <span class="logo" aria-hidden="true"></span>
+          <span>EdgesMarket</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary">
+          <a href="#features">Features</a>
+          <a href="#services">Services</a>
+          <a href="#portfolio">Work</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle theme">
+            <span id="themeIcon" aria-hidden="true">🌙</span>
+          </button>
+
+          <a class="btn ghost" href="#contact">
+            <span aria-hidden="true">✉️</span> Get a Quote
+          </a>
+
+          <button class="icon-btn hamburger" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false">
+            <span aria-hidden="true">☰</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="mobile-panel glass" id="mobilePanel" role="dialog" aria-label="Mobile menu">
+        <a href="#features">Features</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Work</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top" class="section hero">
+    <div class="container hero-grid">
+      <section class="glass split reveal" aria-label="Hero">
+        <div class="pill">
+          <span aria-hidden="true">⚡</span>
+          <span>Modern websites that convert</span>
+          <span class="kbd">HTML/CSS/JS</span>
+        </div>
+
+        <h1>
+          Build <span class="gradient-text">premium</span> web experiences
+          that look great and perform fast.
+        </h1>
+
+        <p>
+          A professional landing page template with theme toggle, responsive layout, animations,
+          and real-world sections. Perfect for showcasing front-end skills and client-ready work.
+        </p>
+
+        <div class="hero-cta">
+          <a class="btn primary" href="#portfolio">
+            <span aria-hidden="true">🚀</span> View Work
+          </a>
+          <a class="btn" href="#features">
+            <span aria-hidden="true">✨</span> Explore Features
+          </a>
+          <span class="tag">No frameworks • Clean code</span>
+        </div>
+
+        <div class="hero-stats">
+          <div class="card stat">
+            <b>Responsive</b>
+            <span>Mobile-first layout</span>
+          </div>
+          <div class="card stat">
+            <b>Fast UI</b>
+            <span>Optimized structure</span>
+          </div>
+          <div class="card stat">
+            <b>Reusable</b>
+            <span>Easy to customize</span>
+          </div>
+        </div>
+      </section>
+
+      <aside class="glass hero-right reveal" aria-label="Preview">
+        <div class="mock">
+          <div class="mock-top">
+            <div class="dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <span class="muted mono">landing-page/index.html</span>
+          </div>
+          <div class="mock-body">
+            <div class="code" role="region" aria-label="Code preview">
+&lt;section class="hero"&gt;
+  &lt;h1&gt;Premium web experiences&lt;/h1&gt;
+  &lt;p&gt;Clean UI • Fast performance • Better conversions&lt;/p&gt;
+  &lt;button&gt;Get a Quote&lt;/button&gt;
+&lt;/section&gt;
+            </div>
+          </div>
+        </div>
+
+        <div class="floating">
+          <span class="badge-dot" aria-hidden="true"></span>
+          <span class="muted">Live-ready UI • Theme toggle</span>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <section id="features" class="section">
+    <div class="container">
+      <div class="two-col">
+        <div class="reveal">
+          <h2 class="title">Features built for a modern portfolio</h2>
+          <p class="subtitle">
+            This template is designed to look professional on GitHub and in real client work:
+            clean sections, strong typography, and practical interactions.
+          </p>
+        </div>
+
+        <div class="glass split reveal">
+          <div class="list">
+            <div class="li"><span class="check" aria-hidden="true">✓</span> Sticky navbar + mobile menu</div>
+            <div class="li"><span class="check" aria-hidden="true">✓</span> Dark/Light theme with local storage</div>
+            <div class="li"><span class="check" aria-hidden="true">✓</span> Scroll reveal animations</div>
+            <div class="li"><span class="check" aria-hidden="true">✓</span> Pricing + FAQ + Contact form</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature card reveal">
+          <div class="icon" aria-hidden="true">🎯</div>
+          <h3>Conversion-focused</h3>
+          <p>Clear CTAs, trust sections, and a structure that guides the user.</p>
+        </div>
+        <div class="feature card reveal">
+          <div class="icon" aria-hidden="true">⚙️</div>
+          <h3>Clean architecture</h3>
+          <p>Readable HTML, scalable CSS tokens, and simple JavaScript utilities.</p>
+        </div>
+        <div class="feature card reveal">
+          <div class="icon" aria-hidden="true">🧩</div>
+          <h3>Easy to customize</h3>
+          <p>Replace content, colors, sections. Keep the design system intact.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <div class="two-col">
+        <div class="glass split reveal">
+          <h2 class="title">Services</h2>
+          <p class="subtitle">
+            Add your services here (web design, landing pages, dashboards, marketing websites, etc.).
+          </p>
+
+          <div class="list">
+            <div class="li"><span class="check" aria-hidden="true">✓</span> Landing pages & marketing websites</div>
+            <div class="li"><span class="check" aria-hidden="true">✓</span> Business websites & UI redesign</div>
+            <div class="li"><span class="check" aria-hidden="true">✓</span> Performance optimization & SEO basics</div>
+            <div class="li"><span class="check" aria-hidden="true">✓</span> Clean UI implementation from Figma</div>
+          </div>
+        </div>
+
+        <div class="glass split reveal">
+          <div class="pill">
+            <span aria-hidden="true">🧠</span>
+            <span>Developer-friendly template</span>
+            <span class="kbd">No build step</span>
+          </div>
+
+          <h3 class="title" style="font-size:22px;">Why this looks “professional”</h3>
+          <p class="subtitle">
+            Real-world layout: strong hero, trust signals, portfolio cards, pricing, FAQ, and contact.
+            Perfect for GitHub repos and client demos.
+          </p>
+
+          <div style="display:flex; gap:12px; margin-top:14px; flex-wrap:wrap;">
+            <span class="tag">Accessible</span>
+            <span class="tag">Responsive</span>
+            <span class="tag">Reusable</span>
+            <span class="tag">Clean UI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="title">Selected Work</h2>
+        <p class="subtitle">Showcase your best projects here. Replace titles and descriptions anytime.</p>
+      </div>
+
+      <div class="portfolio">
+        <article class="work card reveal">
+          <div class="thumb" aria-hidden="true"></div>
+          <h4>Marketing Landing Page</h4>
+          <p>Clean hero, sections, and CTA designed for conversions.</p>
+          <div class="chips">
+            <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Responsive</span>
+          </div>
+        </article>
+
+        <article class="work card reveal">
+          <div class="thumb" aria-hidden="true"></div>
+          <h4>Business Website UI</h4>
+          <p>A professional layout with modern typography and structure.</p>
+          <div class="chips">
+            <span class="chip">UI</span><span class="chip">Design System</span><span class="chip">Accessibility</span>
+          </div>
+        </article>
+
+        <article class="work card reveal">
+          <div class="thumb" aria-hidden="true"></div>
+          <h4>Product Page</h4>
+          <p>Pricing, FAQ, testimonials, and a polished brand vibe.</p>
+          <div class="chips">
+            <span class="chip">UX</span><span class="chip">Performance</span><span class="chip">SEO</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="title">Testimonials</h2>
+        <p class="subtitle">Add real quotes from clients later. For now, placeholders look great.</p>
+      </div>
+
+      <div class="testimonials">
+        <div class="quote card reveal">
+          <p>“Clean UI, fast delivery, and great attention to details. Exactly what we needed.”</p>
+          <div class="who">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <b>Client Name</b>
+              <span>Business Owner</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote card reveal">
+          <p>“The landing page improved our conversion rate and looks premium on mobile.”</p>
+          <div class="who">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <b>Client Name</b>
+              <span>Marketing Lead</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quote card reveal">
+          <p>“A professional developer who understands both design and business goals.”</p>
+          <div class="who">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <b>Client Name</b>
+              <span>Startup Founder</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="title">Pricing</h2>
+        <p class="subtitle">You can keep this section or remove it. It adds a premium vibe.</p>
+      </div>
+
+      <div class="pricing">
+        <div class="price card reveal">
+          <span class="tag">Starter</span>
+          <h4>Landing Page</h4>
+          <div class="money">$199 <small>/ project</small></div>
+          <ul>
+            <li><span class="check" aria-hidden="true">✓</span> One-page landing layout</li>
+            <li><span class="check" aria-hidden="true">✓</span> Responsive design</li>
+            <li><span class="check" aria-hidden="true">✓</span> Basic SEO structure</li>
+          </ul>
+          <p class="hint">Great for a simple marketing page.</p>
+          <div style="margin-top:14px;">
+            <a class="btn" href="#contact">Get Started</a>
+          </div>
+        </div>
+
+        <div class="price card featured reveal">
+          <span class="tag">Popular</span>
+          <h4>Business Website</h4>
+          <div class="money">$499 <small>/ project</small></div>
+          <ul>
+            <li><span class="check" aria-hidden="true">✓</span> Multi-section layout</li>
+            <li><span class="check" aria-hidden="true">✓</span> Premium UI components</li>
+            <li><span class="check" aria-hidden="true">✓</span> Performance optimizations</li>
+          </ul>
+          <p class="hint">Perfect for companies and agencies.</p>
+          <div style="margin-top:14px;">
+            <a class="btn primary" href="#contact">Request Quote</a>
+          </div>
+        </div>
+
+        <div class="price card reveal">
+          <span class="tag">Custom</span>
+          <h4>UI System</h4>
+          <div class="money">$999 <small>/ project</small></div>
+          <ul>
+            <li><span class="check" aria-hidden="true">✓</span> Design system & components</li>
+            <li><span class="check" aria-hidden="true">✓</span> Clean structure for scaling</li>
+            <li><span class="check" aria-hidden="true">✓</span> Best practices and docs</li>
+          </ul>
+          <p class="hint">For larger products and teams.</p>
+          <div style="margin-top:14px;">
+            <a class="btn" href="#contact">Talk to Me</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="section">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="title">FAQ</h2>
+        <p class="subtitle">Common questions. Simple and clean. Great for clients.</p>
+      </div>
+
+      <div class="faq">
+        <details class="reveal">
+          <summary>How do I customize this template? <span class="muted" aria-hidden="true">+</span></summary>
+          <p>Edit the text content, update colors in <span class="mono">:root</span>, and replace sections you don’t need.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Can I split this into multiple files? <span class="muted" aria-hidden="true">+</span></summary>
+          <p>Yes. Create <span class="mono">style.css</span> and <span class="mono">app.js</span> and move the CSS/JS parts.</p>
+        </details>
+
+        <details class="reveal">
+          <summary>Is it responsive? <span class="muted" aria-hidden="true">+</span></summary>
+          <p>Absolutely. It’s mobile-first and adapts smoothly to tablets and desktops.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="reveal">
+        <h2 class="title">Contact</h2>
+        <p class="subtitle">Use this as a demo contact section. Form validation is included.</p>
+      </div>
+
+      <div class="contact-grid">
+        <form class="glass reveal" id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required minlength="2" />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="subject">Subject</label>
+            <input id="subject" name="subject" type="text" placeholder="Project inquiry" required minlength="3" />
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell me about your project..." required minlength="10"></textarea>
+          </div>
+
+          <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <button class="btn primary" type="submit">
+              <span aria-hidden="true">📨</span> Send Message
+            </button>
+            <span class="muted" id="formHint" role="status" aria-live="polite"></span>
+          </div>
+        </form>
+
+        <aside class="glass note reveal">
+          <div class="pill">
+            <span aria-hidden="true">📌</span>
+            <span>Quick info</span>
+            <span class="kbd">copy/paste ready</span>
+          </div>
+
+          <div class="mini">
+            <div><b>Email:</b> <a href="mailto:saman.dadashpoorhector@gmail.com">saman.dadashpoorhector@gmail.com</a></div>
+            <div><b>Personal:</b> <a href="https://samandadashpour.ir" target="_blank" rel="noreferrer">samandadashpour.ir</a></div>
+            <div><b>Company:</b> <a href="https://edgesmarket.ir" target="_blank" rel="noreferrer">edgesmarket.ir</a></div>
+            <div class="card" style="padding:14px;">
+              <b>Tip</b>
+              <p style="margin:6px 0 0; color: var(--muted);">
+                After adding this file, commit it and then pin this repo on your GitHub profile.
+              </p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container foot">
+      <div>
+        <div class="brand">
+          <span class="logo" aria-hidden="true"></span>
+          <span>EdgesMarket</span>
+        </div>
+        <p class="tiny">© <span id="year"></span> — Built with clean HTML/CSS/JS.</p>
+      </div>
+
+      <div class="links" aria-label="Footer links">
+        <a href="#features">Features</a>
+        <a href="#services">Services</a>
+        <a href="#portfolio">Work</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="toTop" type="button" aria-label="Back to top">↑</button>
+
+  <script>
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const themeIcon = document.getElementById('themeIcon');
+
+    function setTheme(mode){
+      root.setAttribute('data-theme', mode);
+      localStorage.setItem('theme', mode);
+      themeIcon.textContent = mode === 'light' ? '☀️' : '🌙';
+    }
+
+    (function initTheme(){
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') return setTheme(saved);
+      setTheme('dark');
+    })();
+
+    themeBtn?.addEventListener('click', () => {
+      const current = root.getAttribute('data-theme') || 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const panel = document.getElementById('mobilePanel');
+
+    function toggleMenu(force){
+      const open = typeof force === 'boolean' ? force : !panel.classList.contains('open');
+      panel.classList.toggle('open', open);
+      menuBtn?.setAttribute('aria-expanded', String(open));
+    }
+
+    menuBtn?.addEventListener('click', () => toggleMenu());
+    panel?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggleMenu(false)));
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') toggleMenu(false);
+    });
+
+    const reveals = Array.from(document.querySelectorAll('.reveal'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach((a) => {
+      a.addEventListener('click', (e) => {
+        const id = a.getAttribute('href');
+        if (!id || id.length < 2) return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', id);
+      });
+    });
+
+    const toTop = document.getElementById('toTop');
+    function onScroll(){
+      const show = window.scrollY > 600;
+      toTop?.classList.toggle('show', show);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    toTop?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const form = document.getElementById('contactForm');
+    const hint = document.getElementById('formHint');
+
+    function setHint(msg, type='info'){
+      if (!hint) return;
+      hint.textContent = msg;
+      hint.style.color = type === 'ok' ? 'rgba(34,197,94,1)'
+                      : type === 'bad' ? 'rgba(239,68,68,1)'
+                      : 'rgba(255,255,255,.70)';
+    }
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      setHint('');
+
+      const data = new FormData(form);
+      const name = String(data.get('name') || '').trim();
+      const email = String(data.get('email') || '').trim();
+      const subject = String(data.get('subject') || '').trim();
+      const message = String(data.get('message') || '').trim();
+
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      if (name.length < 2) return setHint('Please enter your name.', 'bad');
+      if (!emailOk) return setHint('Please enter a valid email.', 'bad');
+      if (subject.length < 3) return setHint('Please enter a subject.', 'bad');
+      if (message.length < 10) return setHint('Message should be at least 10 characters.', 'bad');
+
+      setHint('Message ready! (Demo form — connect to backend later)', 'ok');
+      form.reset();
+    });
+  </script>
+</body>
+</html>
