@@ -11,7 +11,7 @@ This landing page template is **modified for GitHub showcase** and portfolio usa
 - Sticky navbar + mobile menu
 - Smooth scroll + scroll reveal animations
 - Sections: Hero, Features, Services, Portfolio, Testimonials, Pricing, FAQ, Contact
-- Basic form validation (demo)
+- Basic form validation (demo File)
 
 ### Modified for GitHub
 This version is adapted to look clean and professional inside a GitHub repository:
